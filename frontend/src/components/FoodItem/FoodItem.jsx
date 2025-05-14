@@ -1,22 +1,43 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import './FoodItem.css'
 import { assets } from '../../assets/assets'
-import { useState } from 'react'
 import { StoreContext } from '../../context/StoreContext'
+import Toast from '../Toast/Toast'
 
-function FoodItem ({id,name,price,description,image}) {
-  const {cartItems,addToCart,removeFromCart,url} = useContext(StoreContext);
+function FoodItem ({id, name, price, description, image}) {
+  const {cartItems, addToCart, removeFromCart, url} = useContext(StoreContext);
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
+
+  const handleAddToCart = () => {
+    addToCart(id);
+    setToastMessage(`Added ${name} to cart`);
+    setShowToast(true);
+  };
+
+  const handleRemoveFromCart = () => {
+    removeFromCart(id);
+    if (cartItems[id] === 1) {
+      setToastMessage(`Removed ${name} from cart`);
+      setShowToast(true);
+    }
+  };
 
   return (
     <div className='food-item'>
+        <Toast 
+          message={toastMessage}
+          show={showToast}
+          onClose={() => setShowToast(false)}
+        />
         <div className="food-item-img-container">
             <img className='food-item-image' src={url+"/images/"+image} alt="" />
             {!cartItems[id]
-                ?<img className='add' onClick={()=>addToCart(id)} src={assets.add_icon_white} alt="" />
-                :<div className='food-item-counter'>
-                  <img onClick={()=>removeFromCart(id)} src={assets.remove_icon_red} alt='' />
-                  <p className='cartitemsp'>{cartItems[id]}</p>
-                  <img onClick={()=>addToCart(id)} src={assets.add_icon_green} alt='' />
+                ? <img className='add' onClick={handleAddToCart} src={assets.add_icon_white} alt="" />
+                : <div className='food-item-counter'>
+                    <img onClick={handleRemoveFromCart} src={assets.remove_icon_red} alt='' />
+                    <p className='cartitemsp'>{cartItems[id]}</p>
+                    <img onClick={handleAddToCart} src={assets.add_icon_green} alt='' />
                   </div>
             }
         </div>

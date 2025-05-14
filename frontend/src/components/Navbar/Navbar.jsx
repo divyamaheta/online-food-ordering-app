@@ -18,6 +18,23 @@ const Navbar = ({ setShowLogin }) => {
         navigate("/");
     };
 
+    const handleMenuClick = (menuItem) => {
+        setMenu(menuItem);
+        if (menuItem === "menu") {
+            navigate("/#explore-menu");
+            // Scroll to explore-menu section if on home page
+            const element = document.getElementById("explore-menu");
+            if (element) {
+                element.scrollIntoView({ behavior: "smooth" });
+            } else {
+                navigate("/");
+                setTimeout(() => {
+                    document.getElementById("explore-menu")?.scrollIntoView({ behavior: "smooth" });
+                }, 100);
+            }
+        }
+    };
+
     useEffect(() => {
         const toggle = document.getElementById("visual-toggle");
 
@@ -30,7 +47,6 @@ const Navbar = ({ setShowLogin }) => {
                 document
                     .getElementById("visual-toggle-button")
                     .classList.add("lightmode");
-                // Keep logo unchanged for light mode
                 document.querySelector(".logo").style.filter = "none";
             } else {
                 toggle.checked = false;
@@ -38,12 +54,10 @@ const Navbar = ({ setShowLogin }) => {
                 document
                     .getElementById("visual-toggle-button")
                     .classList.remove("lightmode");
-                // Ensure logo remains unchanged for dark mode
                 document.querySelector(".logo").style.filter = "none";
             }
         }
 
-        // Call the function to apply the mode preference on page load
         applyModePreference();
 
         toggle.addEventListener("change", function () {
@@ -53,17 +67,17 @@ const Navbar = ({ setShowLogin }) => {
                 document
                     .getElementById("visual-toggle-button")
                     .classList.add("lightmode");
-                document.querySelector(".logo").style.filter = "none"; // Keep logo unchanged
+                document.querySelector(".logo").style.filter = "none";
             } else {
                 localStorage.setItem("mode", "dark");
                 document.body.classList.remove("lightcolors");
                 document
                     .getElementById("visual-toggle-button")
                     .classList.remove("lightmode");
-                document.querySelector(".logo").style.filter = "none"; // Keep logo unchanged
+                document.querySelector(".logo").style.filter = "none";
             }
         });
-    }, []); // Empty dependency array to run the effect only once
+    }, []);
 
     return (
         <div className="navbar">
@@ -73,43 +87,35 @@ const Navbar = ({ setShowLogin }) => {
             <ul className="navbar-menu">
                 <Link
                     to="/"
-                    onClick={() => setMenu("home")}
+                    onClick={() => handleMenuClick("home")}
                     className={menu === "home" ? "active" : ""}
                 >
-                    home
+                    HOME
                 </Link>
-                <a
-                    href="#explore-menu"
-                    onClick={() => setMenu("menu")}
+                <Link
+                    to="/"
+                    onClick={() => handleMenuClick("menu")}
                     className={menu === "menu" ? "active" : ""}
                 >
-                    menu
-                </a>
-                <a
-                    href="#app-download"
-                    onClick={() => setMenu("mobile-app")}
-                    className={menu === "mobile-app" ? "active" : ""}
-                >
-                    mobile-app
-                </a>
-                <a
-                    href="#footer"
-                    onClick={() => setMenu("contact-us")}
+                    MENU
+                </Link>
+                <Link
+                    to="/#footer"
+                    onClick={() => handleMenuClick("contact-us")}
                     className={menu === "contact-us" ? "active" : ""}
                 >
-                    contact us
-                </a>
+                    CONTACT US
+                </Link>
             </ul>
             <div className="navbar-right">
                 <div className="navbar">
                     <label
-                        for="visual-toggle"
+                        htmlFor="visual-toggle"
                         id="visual-toggle-button"
-                        onclick="visualMode()"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            class="svgIcon-toggle sun-svg"
+                            className="svgIcon-toggle sun-svg"
                             viewBox="0 0 24 24"
                         >
                             <g fill="#f1bd00">
@@ -120,7 +126,7 @@ const Navbar = ({ setShowLogin }) => {
 
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            class="svgIcon-toggle moon-svg"
+                            className="svgIcon-toggle moon-svg"
                             fill="#f9ba48"
                             viewBox="0 0 384 512"
                         >
@@ -128,7 +134,7 @@ const Navbar = ({ setShowLogin }) => {
                         </svg>
                         <input
                             type="checkbox"
-                            class="visual-toggle"
+                            className="visual-toggle"
                             id="visual-toggle"
                         />
                     </label>
@@ -150,7 +156,7 @@ const Navbar = ({ setShowLogin }) => {
                         className="signbutton"
                         onClick={() => setShowLogin(true)}
                     >
-                        sign in
+                        SIGN IN
                     </button>
                 ) : (
                     <div className="navbar-profile">

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import "./Footer.css";
 import { assets } from "../../assets/assets";
 
@@ -18,14 +18,13 @@ const Footer = () => {
                         alt=""
                     />
                     <p>
-                        This website is just for my portfolio, it's not a real
-                        website.
+                        Hangry Is A Food Ordering Website That Allows You To Order Food From Your Favorite Restaurants.
                     </p>
                     <div className="footer-social-icons">
-                        <img src={assets.facebook_icon} alt="" />
-                        <img src={assets.twitter_icon} alt="" />
+                        <img src={assets.facebook_icon} alt="https://www.nishantworldiwde.in/" />
+                        <img src={assets.twitter_icon} alt="https://www.nishantworldiwde.in/" />
                         <a
-                            href="https://www.linkedin.com/in/your-linkedin-profile"
+                            href="https://www.linkedin.com/in/divya-maheta-8b1b6a361/"
                             target="_blank"
                             rel="noopener noreferrer"
                         >
@@ -34,25 +33,25 @@ const Footer = () => {
                     </div>
                 </div>
                 <div className="footer-content-center">
-                    <h2>COMPANY</h2>
+                    <h2>Links</h2>
                     <ul>
                         <li>Home</li>
-                        <li>About us</li>
+                        <li>About Us</li>
                         <li>Delivery</li>
                         <li>Privacy Policy</li>
                     </ul>
                 </div>
                 <div className="footer-content-right">
-                    <h2>GET IN TOUCH</h2>
+                    <h2>Get In Touch</h2>
                     <ul>
-                        <li>+1-212-456-7890</li>
+                        <li>+1-213-456-7890</li>
                         <li>contact@hangry.com</li>
                     </ul>
                 </div>
             </div>
             <hr />
             <p className="footer-copyright">
-                Copyright 2024 © Hangry.com - All rights reserved.
+                Copyright 2025 © Hangry.com - All Rights Reserved.
             </p>
         </div>
     );
