@@ -9,14 +9,22 @@
 }
 .my-orders-order{
     display: grid;
-    grid-template-columns: 0.5fr 2fr 1fr 1fr 2fr 1fr;
+    grid-template-columns: 0.5fr 0.5fr 2fr 1fr 1fr 2fr 1fr;
     align-items: center;
     gap: 30px;
     font-size: 14px;
     padding: 10px 20px;
     color: #454545;
     border: 1px solid tomato;
+    position: relative;
 }
+
+.order-index {
+    font-weight: bold;
+    color: tomato;
+    font-size: 16px;
+}
+
 .my-orders-order img{
     width: 50px;
 }
@@ -36,7 +44,6 @@
     color: #454545
 }
 
-
 :root .my-orders-order button{
     border: 1px solid tomato;
     background-color: black;
@@ -49,7 +56,6 @@
     color: #454545
 }
 
-
 :root .my-orders-order p b,
 :root .my-orders-order{
     color: white;
@@ -60,7 +66,6 @@
     color: #454545;
 }
 
-
 :root .myordersp {
     color: white; 
 }
@@ -69,14 +74,16 @@
     color: black;
 }
 
-
 @media (max-width:900px) {
     .my-orders-order{
-        grid-template-columns: 1fr 2fr 1fr;
+        grid-template-columns: 0.5fr 1fr 2fr 1fr;
         row-gap: 5px;
         font-size: 12px;
     }
     .my-orders-order button{
         font-size: 10px;
+    }
+    .order-index {
+        font-size: 14px;
     }
 }
