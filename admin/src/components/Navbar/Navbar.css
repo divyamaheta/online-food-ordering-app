@@ -1,20 +1,57 @@
+.admin-navbar {
+    background-color: var(--body-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
 .navbar{
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 8px 4%;
+    max-width: 1400px;
+    margin: 0 auto;
 }
+
 .navbar .logo{
     width: max(10%,80px);
 }
 
-.navbar .profile{
-    width: 40px;
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.admin-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px 10px;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.admin-profile:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.admin-profile .profile{
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.admin-role {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--light-text);
 }
 
 #visual-toggle-button{
-    width: 140px;
-    height: 40px;
+    width: 37px;
+    height: 37px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -22,7 +59,14 @@
     border: 1px solid var(--border-color);
     border-radius: 5px;
     cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
 }
+
+#visual-toggle-button:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
 /* checkbox */
 #visual-toggle{
     appearance: none;
@@ -38,21 +82,46 @@
     position: absolute;
     transition: all .3s;
 }
+
 .sun-svg{
     opacity: 0;
     transition: all .3s;
 }
+
 .lightmode .sun-svg{
     filter: brightness(0);
     transform: rotate(180deg);
     opacity: 1;
 }
+
 .lightmode .moon-svg{
     opacity: 0;
 }
+
 .animate .moon-svg{
     transform: rotate(360deg);
     transition: all .3s;
+}
+
+/* Light mode styles */
+.lightcolors .admin-profile {
+    background-color: #f3f4f6;
+}
+
+.lightcolors .admin-profile:hover {
+    background-color: #e5e7eb;
+}
+
+.lightcolors .admin-role {
+    color: #374151;
+}
+
+.lightcolors #visual-toggle-button {
+    background-color: #f3f4f6;
+}
+
+.lightcolors #visual-toggle-button:hover {
+    background-color: #e5e7eb;
 }
 
 .lightcolors .logo {
