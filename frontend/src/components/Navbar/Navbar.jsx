@@ -12,9 +12,9 @@ const Navbar = ({ setShowLogin }) => {
     const [showToast, setShowToast] = useState(false);
     const [toastMessage, setToastMessage] = useState('');
     const [toastType, setToastType] = useState('success');
+    const [showDropdown, setShowDropdown] = useState(false);
 
     const { getTotalCartAmount, token, setToken } = useContext(StoreContext);
-
     const navigate = useNavigate();
 
     const logout = () => {
@@ -23,8 +23,21 @@ const Navbar = ({ setShowLogin }) => {
         setToastMessage('Logged out successfully!');
         setToastType('success');
         setShowToast(true);
+        setShowDropdown(false);
         navigate("/");
     };
+
+    // Close dropdown when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (showDropdown && !event.target.closest('.navbar-profile')) {
+                setShowDropdown(false);
+            }
+        };
+
+        document.addEventListener('click', handleClickOutside);
+        return () => document.removeEventListener('click', handleClickOutside);
+    }, [showDropdown]);
 
     const handleMenuClick = (menuItem) => {
         setMenu(menuItem);
@@ -181,20 +194,29 @@ const Navbar = ({ setShowLogin }) => {
                     <div className="navbar-profile">
                         <img
                             src={assets.profile_icon}
-                            className="white-filter"
+                            className="profile-icon"
                             alt=""
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                setShowDropdown(!showDropdown);
+                            }}
                         />
-                        <ul className="nav-profile-dropdown">
-                            <li onClick={() => navigate("/myorders")}>
-                                <img src={assets.bag_icon} alt="" />
-                                <p>Orders</p>
-                            </li>
-                            <hr />
-                            <li onClick={logout}>
-                                <img src={assets.logout_icon} alt="" />
-                                <p>Logout</p>
-                            </li>
-                        </ul>
+                        {showDropdown && (
+                            <ul className="nav-profile-dropdown">
+                                <li onClick={() => {
+                                    navigate("/myorders");
+                                    setShowDropdown(false);
+                                }}>
+                                    <img src={assets.bag_icon} alt="" />
+                                    <p>Orders</p>
+                                </li>
+                                <hr />
+                                <li onClick={logout}>
+                                    <img src={assets.logout_icon} alt="" />
+                                    <p>Logout</p>
+                                </li>
+                            </ul>
+                        )}
                     </div>
                 )}
             </div>
