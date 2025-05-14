@@ -32,6 +32,53 @@
 }
 .place-order .cart-total button{
     margin-top: 30px;
+    width: 100%;
+    padding: 12px;
+    border-radius: 4px;
+    background-color: tomato;
+    color: white;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.place-order .cart-total button:hover {
+    background-color: #ff4d2e;
+}
+
+.payment-methods {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #e2e2e2;
+    border-radius: 4px;
+}
+
+.payment-methods p {
+    color: var(--light-text);
+    margin-bottom: 10px;
+}
+
+.payment-methods .flex {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.payment-methods label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    color: var(--light-text);
+}
+
+.payment-methods input[type="radio"] {
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    cursor: pointer;
+    accent-color: tomato;
 }
 
 :root .emaill {
@@ -55,7 +102,6 @@
     color: white;
 }
 
-
 .lightcolors .emaill {
     background-color: white;
 }
@@ -77,7 +123,6 @@
     color: black;
 }
 
-
 :root .multi-fields input {
     background-color: black;
     color: white; 
@@ -87,7 +132,6 @@
     color: white;
 }
 
-
 .lightcolors .multi-fields input {
     background-color: white;
     color: black;
@@ -95,7 +139,6 @@
 .lightcolors .multi-fields input::placeholder {
     color: black;
 }
-
 
 :root .title {
     color: white;

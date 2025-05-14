@@ -32,6 +32,11 @@ const Navbar = ({ setShowLogin }) => {
                     document.getElementById("explore-menu")?.scrollIntoView({ behavior: "smooth" });
                 }, 100);
             }
+        } else if (menuItem === "contact-us") {
+            navigate("/");
+            setTimeout(() => {
+                document.getElementById("footer")?.scrollIntoView({ behavior: "smooth" });
+            }, 100);
         }
     };
 

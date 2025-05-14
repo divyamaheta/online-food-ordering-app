@@ -3,24 +3,26 @@ import './FoodItem.css'
 import { assets } from '../../assets/assets'
 import { StoreContext } from '../../context/StoreContext'
 import Toast from '../Toast/Toast'
+import PropTypes from 'prop-types';
 
 function FoodItem ({id, name, price, description, image}) {
   const {cartItems, addToCart, removeFromCart, url} = useContext(StoreContext);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
+  const [toastType, setToastType] = useState('success');
 
   const handleAddToCart = () => {
     addToCart(id);
-    setToastMessage(`Added ${name} to cart`);
+    setToastMessage(`${name} added to cart`);
+    setToastType('success');
     setShowToast(true);
   };
 
   const handleRemoveFromCart = () => {
     removeFromCart(id);
-    if (cartItems[id] === 1) {
-      setToastMessage(`Removed ${name} from cart`);
-      setShowToast(true);
-    }
+    setToastMessage(`${name} removed from cart`);
+    setToastType('error');
+    setShowToast(true);
   };
 
   return (
@@ -29,6 +31,7 @@ function FoodItem ({id, name, price, description, image}) {
           message={toastMessage}
           show={showToast}
           onClose={() => setShowToast(false)}
+          type={toastType}
         />
         <div className="food-item-img-container">
             <img className='food-item-image' src={url+"/images/"+image} alt="" />
@@ -52,5 +55,13 @@ function FoodItem ({id, name, price, description, image}) {
     </div>
   )
 }
+
+FoodItem.propTypes = {
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  description: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired
+};
 
 export default FoodItem
