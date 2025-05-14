@@ -10,7 +10,9 @@ const List = ({url}) => {
   const fetchList = async () => {
     const response = await axios.get(`${url}/api/food/list`);
     if (response.data.success){
-      setList(response.data.data)
+      // Sort items by date in descending order (newest first)
+      const sortedList = response.data.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      setList(sortedList);
     }
     else
     {
@@ -39,6 +41,7 @@ const List = ({url}) => {
       <p>All Foods List</p>
     <div className="list-table">
       <div className="list-table-format title">
+        <b>#</b>
         <b>Image</b>
         <b>Name</b>
         <b>Category</b>
@@ -47,7 +50,8 @@ const List = ({url}) => {
       </div>
       {list.map((item,index)=>{
         return (
-          <div key={index} className='list-table-format'>
+          <div key={item._id} className='list-table-format'>
+            <p className="item-index">{list.length - index}</p>
             <img src={`${url}/images/`+item.image} alt="" />
             <p>{item.name}</p>
             <p>{item.category}</p>

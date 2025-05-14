@@ -11,8 +11,9 @@ const Orders = ({url}) => {
   const fetchAllOrders = async () => {
     const response = await axios.get(url+"/api/order/list");
     if (response.data.success){
-      setOrders(response.data.data);
-      console.log(response.data.data);
+      // Sort orders by date in descending order (newest first)
+      const sortedOrders = response.data.data.sort((a, b) => new Date(b.date) - new Date(a.date));
+      setOrders(sortedOrders);
     }
     else{
       toast.error("Error")
@@ -39,7 +40,8 @@ useEffect(()=>{
       <h3>Order Page</h3>
       <div className="order-list">
         {orders.map((order,index)=>(
-          <div key={index} className='order-item'>
+          <div key={order._id} className='order-item'>
+            <div className="order-index">#{orders.length - index}</div>
             <img src={assets.parcel_icon} alt="" />
             <div>
               <p className='order-item-food'>
