@@ -1,9 +1,10 @@
-import React, { useContext, useState } from 'react'
+import { useContext, useState } from 'react'
 import './LoginPopup.css'
 import { assets } from '../../assets/assets'
 import { StoreContext } from '../../context/StoreContext'
 import axios from "axios"
 import Toast from '../Toast/Toast'
+import PropTypes from 'prop-types'
 
 const LoginPopup = ({setShowLogin}) => {
 
@@ -25,12 +26,6 @@ const LoginPopup = ({setShowLogin}) => {
     setData(data=>({...data,[name]:value}))
   }
 
-  const showNotification = (message, type = 'success') => {
-    setToastMessage(message);
-    setToastType(type);
-    setShowToast(true);
-  };
-
   const onLogin = async (event) => {
     event.preventDefault()
     try {
@@ -45,7 +40,9 @@ const LoginPopup = ({setShowLogin}) => {
       const response = await axios.post(newUrl,data);
 
       if (response.data.success){
-        showNotification(currState === "Login" ? 'Logged in successfully!' : 'Account created successfully!');
+        setToastMessage(currState === "Login" ? 'Logged in successfully!' : 'Account created successfully!');
+        setToastType('success');
+        setShowToast(true);
         setToken(response.data.token);
         localStorage.setItem("token",response.data.token)
         setTimeout(() => {
@@ -53,13 +50,16 @@ const LoginPopup = ({setShowLogin}) => {
         }, 1500);
       }
       else{
-        showNotification(response.data.message || 'Authentication failed', 'error');
+        setToastMessage(response.data.message || 'Authentication failed');
+        setToastType('error');
+        setShowToast(true);
       }
     } catch (error) {
-      showNotification(
-        error.response?.data?.message || 'Something went wrong. Please try again.',
-        'error'
+      setToastMessage(
+        error.response?.data?.message || 'Something went wrong. Please try again.'
       );
+      setToastType('error');
+      setShowToast(true);
     }
   }
 
@@ -76,7 +76,9 @@ const LoginPopup = ({setShowLogin}) => {
           <h2>{currState}</h2>
           <img onClick={()=>{
             if (currState === "Login") {
-              showNotification('Login cancelled', 'error');
+              setToastMessage('Login cancelled');
+              setToastType('error');
+              setShowToast(true);
             }
             setTimeout(() => setShowLogin(false), 1500);
           }} src={assets.cross_icon} alt="" />
@@ -99,5 +101,9 @@ const LoginPopup = ({setShowLogin}) => {
     </div>
   )
 }
+
+LoginPopup.propTypes = {
+  setShowLogin: PropTypes.func.isRequired
+};
 
 export default LoginPopup

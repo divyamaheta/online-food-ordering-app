@@ -1,12 +1,17 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./Navbar.css";
 import { assets } from "../../assets/assets";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { StoreContext } from "../../context/StoreContext";
+import Toast from "../Toast/Toast";
+import PropTypes from 'prop-types';
 
 const Navbar = ({ setShowLogin }) => {
     const [menu, setMenu] = useState("home");
+    const [showToast, setShowToast] = useState(false);
+    const [toastMessage, setToastMessage] = useState('');
+    const [toastType, setToastType] = useState('success');
 
     const { getTotalCartAmount, token, setToken } = useContext(StoreContext);
 
@@ -15,6 +20,9 @@ const Navbar = ({ setShowLogin }) => {
     const logout = () => {
         localStorage.removeItem("token");
         setToken("");
+        setToastMessage('Logged out successfully!');
+        setToastType('success');
+        setShowToast(true);
         navigate("/");
     };
 
@@ -86,6 +94,12 @@ const Navbar = ({ setShowLogin }) => {
 
     return (
         <div className="navbar">
+            <Toast 
+                message={toastMessage}
+                show={showToast}
+                onClose={() => setShowToast(false)}
+                type={toastType}
+            />
             <Link to="/">
                 <img src={assets.logo} alt="" className="logo" />
             </Link>
@@ -186,6 +200,10 @@ const Navbar = ({ setShowLogin }) => {
             </div>
         </div>
     );
+};
+
+Navbar.propTypes = {
+    setShowLogin: PropTypes.func.isRequired
 };
 
 export default Navbar;

@@ -1,4 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 *{
   padding: 0;
@@ -28,6 +31,24 @@ a{
     opacity: 0;
   }
   100%{
+    opacity: 1;
+  }
+}
+
+/* Custom styles */
+@layer components {
+  .animate-slide-down {
+    animation: slideDown 0.3s ease-out forwards;
+  }
+}
+
+@keyframes slideDown {
+  0% {
+    transform: translate(-50%, -100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%, 0);
     opacity: 1;
   }
 }
